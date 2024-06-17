@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, json
 from repository.planets_repository import PlanetRepository
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 from bson import ObjectId
@@ -13,7 +13,7 @@ def get_planets():
 
 @planet_bp.route('/planet/<id>', methods=['GET'])
 def get_planet(id):
-    planet = repo.find_by_id(ObjectId(id))
+    planet = repo.find_by_id(id)
     return jsonify(planet)
 
 @planet_bp.route('/planet', methods=['POST'])
