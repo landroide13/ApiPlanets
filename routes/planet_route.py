@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from repository.planets_repository import PlanetRepository
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 from bson import ObjectId
 
 planet_bp = Blueprint('planet_bp', __name__)
@@ -7,19 +8,19 @@ repo = PlanetRepository()
 
 @planet_bp.route('/planets', methods=['GET'])
 def get_planets():
-    todos = repo.find_all()
-    return jsonify([todo for todo in todos])
+    planets = repo.find_all()
+    return jsonify([planet for planet in planets])
 
 @planet_bp.route('/planet/<id>', methods=['GET'])
 def get_planet(id):
-    todo = repo.find_by_id(ObjectId(id))
-    return jsonify(todo)
+    planet = repo.find_by_id(ObjectId(id))
+    return jsonify(planet)
 
 @planet_bp.route('/planet', methods=['POST'])
 def add_planet():
     data = request.json
-    todo_id = repo.create(data)
-    return jsonify({"_id": str(todo_id)}), 201
+    planet_id = repo.create(data)
+    return jsonify({"_id": str(planet_id)}), 201
 
 @planet_bp.route('/planet/<id>', methods=['PUT'])
 def update_planet(id):

@@ -10,9 +10,9 @@ class Planet:
 
     def to_json(self):
         return {
-            "_id": self.id,
-            "planet_name": self.title,
-            "planet_type": self.description,
+            "_id": self.planet_id,
+            "planet_name": self.planet_name,
+            "planet_type": self.planet_type,
             "home_start": self.home_start,
             "mass": self.mass,
             "radius": self.radius,
